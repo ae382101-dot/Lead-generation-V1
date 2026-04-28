@@ -61,7 +61,7 @@ analyzes them with AI, and stores results in Airtable — built with n8n.
 
 | File | Description |
 |------|-------------|
-| `lead-generation-v1.json` | n8n workflow — import directly |
+| `Lead Generation -V1 google maps scrap (1).json` | n8n workflow — import directly |
 
 ---
 
