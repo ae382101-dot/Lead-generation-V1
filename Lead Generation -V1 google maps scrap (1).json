@@ -1,0 +1,956 @@
+{
+  "name": "Lead Generation -V1 google maps scrap",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "1002850562903489",
+        "recipientPhoneNumber": "+20 10 95521680",
+        "textBody": "={{ $json.output[0].message }} ||{{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        368,
+        1664
+      ],
+      "id": "3d931a3e-a0a5-4c70-9015-c379f3d8102a",
+      "name": "Send message2",
+      "webhookId": "1beb609d-bd88-43f8-9029-579587bf9f38"
+    },
+    {
+      "parameters": {
+        "authentication": "apifyOAuth2Api",
+        "actorId": {
+          "__rl": true,
+          "value": "nwua9Gu5YrADL7ZDj",
+          "mode": "list",
+          "cachedResultName": "Google Maps Scraper (compass/crawler-google-places)",
+          "cachedResultUrl": "https://console.apify.com/actors/nwua9Gu5YrADL7ZDj/input"
+        },
+        "eventType": [
+          "ACTOR.RUN.SUCCEEDED",
+          "ACTOR.RUN.TIMED_OUT"
+        ]
+      },
+      "type": "@apify/n8n-nodes-apify.apifyTrigger",
+      "typeVersion": 1,
+      "position": [
+        -112,
+        1360
+      ],
+      "id": "2d43fad4-784b-4691-9f8d-4643fc0791b0",
+      "name": "Apify Trigger3",
+      "webhookId": "9581e557-5ba5-457c-be8b-810595d8b57f"
+    },
+    {
+      "parameters": {
+        "content": "## google  maps scrap",
+        "height": 800,
+        "width": 2916,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -128,
+        1104
+      ],
+      "id": "51bd86ca-cda9-4285-a6ea-83b42816bdf4",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.apify.com/v2/datasets/{{$json.resource.defaultDatasetId}}/items",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        400,
+        1296
+      ],
+      "id": "0d3ce08b-641f-430a-abcb-37815ea99012",
+      "name": "HTTP Request4"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "08f84165-d25d-42d4-af26-21d1e12b43f6",
+              "leftValue": "={{ $json.resource.storageIds.datasets.default }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        80,
+        1360
+      ],
+      "id": "e4330c5b-43d7-497d-98fd-fc25f3aa577e",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1536,
+        1248
+      ],
+      "id": "524fbdb9-1208-4d41-9f78-593c4e676343",
+      "name": "Loop Over Items1"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1CnJfx0Je_XygX793BZoHyQBnZiwU6a_LMsB4IzXhDD0",
+          "mode": "list",
+          "cachedResultName": "result_Apify",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1CnJfx0Je_XygX793BZoHyQBnZiwU6a_LMsB4IzXhDD0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 591465830,
+          "mode": "list",
+          "cachedResultName": "الورقة3",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1CnJfx0Je_XygX793BZoHyQBnZiwU6a_LMsB4IzXhDD0/edit#gid=591465830"
+        },
+        "filtersUI": {
+          "values": []
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        400,
+        1504
+      ],
+      "id": "18995910-bbfa-4729-92d9-c69d9bf5bbe1",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "g3rbzlkBWqwT9cde",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        640,
+        1408
+      ],
+      "id": "d26004e0-2524-44ab-bf09-d5c6062f21f2",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1CnJfx0Je_XygX793BZoHyQBnZiwU6a_LMsB4IzXhDD0",
+          "mode": "list",
+          "cachedResultName": "result_Apify",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1CnJfx0Je_XygX793BZoHyQBnZiwU6a_LMsB4IzXhDD0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 591465830,
+          "mode": "list",
+          "cachedResultName": "الورقة3",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1CnJfx0Je_XygX793BZoHyQBnZiwU6a_LMsB4IzXhDD0/edit#gid=591465830"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id place": "={{ $json.placeId }}",
+            "NAME PLACE": "={{ $json.title }}"
+          },
+          "matchingColumns": [
+            "id place"
+          ],
+          "schema": [
+            {
+              "id": "id place",
+              "displayName": "id place",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "NAME PLACE",
+              "displayName": "NAME PLACE",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1456,
+        1536
+      ],
+      "id": "a2dcc223-1d73-4697-b341-fe8d02c81d67",
+      "name": "Append id place"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appQ4QWVg8lLXxoQq",
+          "mode": "list",
+          "cachedResultName": "lead genrration -V1",
+          "cachedResultUrl": "https://airtable.com/appQ4QWVg8lLXxoQq"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblFh1uGbCIB9L55n",
+          "mode": "list",
+          "cachedResultName": "Table 1",
+          "cachedResultUrl": "https://airtable.com/appQ4QWVg8lLXxoQq/tblFh1uGbCIB9L55n"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "DATA": "={{JSON.stringify($json)}}",
+            "phone": "={{ $json.phone }} ",
+            "address": "={{ $json.address }}",
+            "id place": "={{ $json.placeId }}",
+            "Title & name": "={{ $json.categoryName }} && {{ $json.title }} "
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Title & name",
+              "displayName": "Title & name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "address",
+              "displayName": "address",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "id place",
+              "displayName": "id place",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "DATA",
+              "displayName": "DATA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Data status",
+              "displayName": "Data status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        1664,
+        1376
+      ],
+      "id": "4a32f943-caa7-4cbc-a6b7-fa0e04c6d0a2",
+      "name": "Create a record"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "name": "Replace Me4",
+      "typeVersion": 1,
+      "position": [
+        2320,
+        1104
+      ],
+      "id": "5b278c53-7eb7-4dbf-8170-0a5fc27832a7",
+      "placeholder": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3a2f5e88-b5e8-40f8-af91-5b4d0c659dcf",
+              "name": "Data",
+              "value": "={{ $json.fields.DATA }}",
+              "type": "string"
+            },
+            {
+              "id": "995e00ae-a7a0-4d26-b922-a99c31874304",
+              "name": "id airtable",
+              "value": "={{ $json.id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1776,
+        1232
+      ],
+      "id": "291ab916-6792-4635-b2ed-a5251111f7e3",
+      "name": "Edit Fields11"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1952,
+        1232
+      ],
+      "id": "e075757b-6923-4b38-b5c0-eef1a7e5c199",
+      "name": "Loop Over Items6"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.Data }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "# ROLE You are a senior business strategist specialized in identifying high-value growth opportunities for web developers and digital marketers.  # INPUT You will receive a JSON object containing scraped Google Maps business data.  # TASK Analyze the data deeply and extract: 1) Business opportunity quality 2) Specific actionable insight 3) Contact & identity information  # OUTPUT (STRICT JSON ONLY) {   \"name\": \"business name\",   \"address\": \"full address\",   \"phone\": \"phone number or 'not available'\",   \"email\": \"email or 'not available'\",   \"website\": \"url or 'not available'\",   \"social_media\": \"links or 'not available'\",    \"score\": number (0-10),   \"category\": \"low \n medium \n high value lead\",    \"main_problem\": \"clear specific problem\",   \"opportunity\": \"specific actionable business opportunity\",   \"opportunity_type\": \"web_dev \n seo \n ads \n automation \n branding\",    \"insights\": [     \"short sharp insight 1\",     \"short sharp insight 2\"   ],    \"outreach_message\": \"one short persuasive message\" }  # ANALYSIS RULES  ## 1. Website Analysis (IMPORTANT) - No website / null / broken → HIGH opportunity (web_dev) - Weak domain / outdated design → MEDIUM opportunity - Good website → shift to SEO / Ads / Automation upsell - If website exists but no CTA / slow / not mobile friendly → treat as weak  ## 2. Reviews & Rating - rating < 4.0 → reputation issue - reviewsCount < 150 → visibility problem - High rating + high reviews → upsell (ads, automation, retention) - Detect negative patterns (service, delay, price)  ## 3. Engagement & Freshness - Old reviews (>6 months) → inactive business → opportunity - No replies to reviews → trust gap  ## 4. Data Completeness - Missing phone / website / social → marketing gap - Missing photos/menu → conversion issue  ## 5. Social Presence - No social media → branding opportunity - Weak engagement → content/ads opportunity  ## 6. Competitive Position (IMPORTANT) - High reviews + low rating → weak vs competitors - Low reviews + good rating → hidden gem → strong growth opportunity  ## 7. Lead Value Scoring - 0–3 → low - 4–6 → medium - 7–10 → high  Increase score if: - No website - Poor reputation - Missing data - Weak visibility  Decrease score if: - Already optimized business  ## 8. Opportunity Type Selection Pick ONE primary: - web_dev → website - seo → search ranking - ads → paid ads - automation → CRM / chatbot / funnels - branding → social presence & identity  ## 9. Insights Rules - Must be actionable (not generic) - Based on actual data  ## 10. Outreach Message - ONE sentence only - Direct + value-driven - Focus on main problem  # CONTACT DATA RULE (STRICT)  - Extract ONLY available data from input JSON - DO NOT guess or infer any contact information  - If phone missing → \"not available\" - If email missing → \"not available\" - If website missing → \"not available\" - If social media missing → \"not available\"  - Never generate emails (no info@ guessing) - Never fabricate links  # STYLE - Output بالعربي (ماعدا القيم التقنية زي web_dev) - مختصر + ذكي + مباشر  # IMPORTANT RULES - NEVER return null → استخدم \"not available\" - JSON فقط بدون أي نص إضافي - لازم يبدأ بـ { وينتهي بـ }"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        2144,
+        1248
+      ],
+      "id": "bcbec1e6-0fc3-4d58-9b99-35a4c7c703ee",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appQ4QWVg8lLXxoQq",
+          "mode": "list",
+          "cachedResultName": "lead genrration -V1",
+          "cachedResultUrl": "https://airtable.com/appQ4QWVg8lLXxoQq"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblFh1uGbCIB9L55n",
+          "mode": "list",
+          "cachedResultName": "google maps scrap",
+          "cachedResultUrl": "https://airtable.com/appQ4QWVg8lLXxoQq/tblFh1uGbCIB9L55n"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('Loop Over Items6').item.json['id airtable'] }}",
+            "Result of data analysis": "={{ $json.text }}"
+          },
+          "matchingColumns": [
+            "id",
+            "Analyzed data"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Title & name",
+              "displayName": "Title & name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "address",
+              "displayName": "address",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "id place",
+              "displayName": "id place",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "DATA",
+              "displayName": "DATA",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": true
+            },
+            {
+              "id": "Result of data analysis",
+              "displayName": "Result of data analysis",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.2,
+      "position": [
+        2608,
+        1248
+      ],
+      "id": "47871549-2797-41af-880d-836e97ba7a5a",
+      "name": "Update record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "wUBpuEXID2cQLQNe",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1968,
+        1520
+      ],
+      "id": "8e80a7d9-f98a-4a1c-a00f-d4556f4aff29",
+      "name": "Merge3"
+    },
+    {
+      "parameters": {
+        "amount": 3
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2448,
+        1248
+      ],
+      "id": "17b735d7-3f86-44a9-92cd-4f1ee711665f",
+      "name": "Wait3",
+      "webhookId": "86953bc0-085b-46f1-8a40-a40c33f38ffc"
+    },
+    {
+      "parameters": {
+        "jsCode": "const allItems = $input.all().map(item => item.json);\n\n// 1. IDs من الشيت بس (اللي مفيهاش title)\nconst sheetIds = new Set(\n  allItems\n    .filter(item => !item.title && (item['id place'] || item['placeId']))\n    .map(item => (item['id place'] || item['placeId']).toString().trim())\n);\n\n// 2. فلترة الداتا الجديدة (اللي فيها title)\nconst newItems = allItems.filter(item => {\n  if (!item.title || !item.placeId) return false;\n  return !sheetIds.has(item.placeId.toString().trim());\n});\n\n// 3. الداتا الموجودة قبل كده (duplicates)\nconst existingItems = allItems.filter(item => {\n  if (!item.title || !item.placeId) return false;\n  return sheetIds.has(item.placeId.toString().trim());\n});\n\n// 4. رجّع الجديد + الموجود كل واحد بـ flag\nconst output = [\n  ...newItems.map(item => ({ json: { ...item, status: 'new' } })),\n  ...existingItems.map(item => ({ json: { \n    status: 'already_exists',\n    placeId: item.placeId,\n    title: item.title\n  }}))\n];\n\n// 5. لو مفيش خالص\nif (output.length === 0) {\n  return [{ json: { message: 'No data found' } }];\n}\n\nreturn output;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        832,
+        1408
+      ],
+      "id": "7a1d12b0-8d64-44d6-b23c-6984563b82da",
+      "name": "Code in JavaScript5"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "70692be8-4247-4367-ab68-5d8163ed7044",
+              "leftValue": "={{$json[\"status\"]}}",
+              "rightValue": "new",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        992,
+        1408
+      ],
+      "id": "054e9966-f9f4-44fe-bb9e-b99a31ffcd9b",
+      "name": "If6"
+    },
+    {
+      "parameters": {
+        "sendTo": "elmahdya524@gmail.com",
+        "subject": "warning",
+        "emailType": "text",
+        "message": "=تمت عمليت الاسكراب مع العلم لم يتم حفظ البيانات الخاصه بهذا الاسم  نظرا لوجودها من قبل   name : {{ $json.title }} , \nid place :{{ $json.placeId }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1728,
+        1728
+      ],
+      "id": "8fa8a525-3356-4b70-8d7c-2a1f1427b06a",
+      "name": "Send a message",
+      "webhookId": "0078f792-682f-45c9-9544-4644e697579e"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1472,
+        1712
+      ],
+      "id": "cfd1d156-08e7-44f2-9a39-a0036d4ebaa7",
+      "name": "Loop Over Items7"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items.filter(item => item.json.status === \"new\");"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1216,
+        1248
+      ],
+      "id": "83660b69-1f65-406e-9b70-4d4dae271ed8",
+      "name": "Code in JavaScript6"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "responsesApiEnabled": false,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        2144,
+        1440
+      ],
+      "id": "7e0c35cf-f9b5-4c21-b4ae-cd7557ca16da",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "FY17xgiTRdTAix47",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Apify Trigger3": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request4": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request4",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send message2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items1": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Fields11",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append id place": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Create a record": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items6": {
+      "main": [
+        [
+          {
+            "node": "Replace Me4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields11": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Wait3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update record": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait3": {
+      "main": [
+        [
+          {
+            "node": "Update record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript5": {
+      "main": [
+        [
+          {
+            "node": "If6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If6": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript6",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Loop Over Items7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items7": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript6": {
+      "main": [
+        [
+          {
+            "node": "Append id place",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Loop Over Items1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "dd5520a3-cd63-4b22-bd74-f008ea0a080a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a5f66a0c2aa381b9c33312a740241b9965a4d85e953c5147e88ce68069fe8b6f"
+  },
+  "id": "z2OYHhruVSgpuj5u",
+  "tags": []
+}
