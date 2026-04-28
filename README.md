@@ -1,4 +1,4 @@
-# 📍 Lead Generation System — V1
+# 📍 Lead Generation System—V1 google map scrap
 
 Automated pipeline that scrapes business leads from Google Maps,
 analyzes them with AI, and stores results in Airtable — built with n8n.
